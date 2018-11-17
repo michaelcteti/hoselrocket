@@ -10,10 +10,20 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2018_05_06_215257) do
+ActiveRecord::Schema.define(version: 2018_11_17_155818) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "course_holes", force: :cascade do |t|
+    t.bigint "course_id", null: false
+    t.integer "hole_number", null: false
+    t.integer "yardage", null: false
+    t.integer "par", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["course_id"], name: "index_course_holes_on_course_id"
+  end
 
   create_table "courses", force: :cascade do |t|
     t.string "name", null: false
@@ -33,5 +43,6 @@ ActiveRecord::Schema.define(version: 2018_05_06_215257) do
     t.index ["course_id"], name: "index_rounds_on_course_id"
   end
 
+  add_foreign_key "course_holes", "courses"
   add_foreign_key "rounds", "courses"
 end
