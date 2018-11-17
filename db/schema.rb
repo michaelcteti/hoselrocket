@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2018_11_17_155818) do
+ActiveRecord::Schema.define(version: 2018_11_17_163420) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -34,6 +34,21 @@ ActiveRecord::Schema.define(version: 2018_11_17_155818) do
     t.datetime "updated_at", null: false
   end
 
+  create_table "holes", force: :cascade do |t|
+    t.bigint "course_hole_id", null: false
+    t.integer "score", null: false
+    t.boolean "ipd", null: false
+    t.boolean "gir", null: false
+    t.boolean "fringe"
+    t.integer "putt_one"
+    t.integer "putt_two"
+    t.integer "putt_three"
+    t.integer "putt_four"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["course_hole_id"], name: "index_holes_on_course_hole_id"
+  end
+
   create_table "rounds", force: :cascade do |t|
     t.date "date", null: false
     t.bigint "course_id", null: false
@@ -44,5 +59,6 @@ ActiveRecord::Schema.define(version: 2018_11_17_155818) do
   end
 
   add_foreign_key "course_holes", "courses"
+  add_foreign_key "holes", "course_holes"
   add_foreign_key "rounds", "courses"
 end
